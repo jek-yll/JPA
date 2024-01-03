@@ -1,58 +1,104 @@
 package dao;
 
+import model.InfosTodo;
 import model.Todo;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TodoDAO extends BaseDAO<Todo> {
 
     @Override
-    public void create(Todo element) throws SQLException {
-        transaction.begin();
-        em.persist(element);
-        transaction.commit();
-        //em.close();
-        //emf.close();
-    }
+    public boolean create(Todo todo, InfosTodo infos) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
 
-    @Override
-    public boolean update(Todo element) throws SQLException {
-        transaction.begin();
-        if (element.getIsDone()){
-            return false;
-        } else {
-            element.setIsDone(!element.getIsDone());
-            em.persist(element);
+        try {
+            transaction.begin();
+            em.persist(todo);
+            em.persist(infos);
             transaction.commit();
             return true;
+        } catch (Exception e) {
+            if (transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
         }
     }
 
     @Override
-    public void delete(Todo todo) throws SQLException {
-        transaction.begin();
-        em.remove(todo);
-        transaction.commit();
-        //em.close();
-        //emf.close();
+    public boolean update(Todo element)  {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            if (!element.getIsDone()){
+                transaction.begin();
+                element.setIsDone(!element.getIsDone());
+                transaction.commit();
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e){
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public Todo get(Long id) throws SQLException {
-        //transaction.begin();
-        Todo todo = em.find(Todo.class, id);
-        return todo;
+    public boolean delete(Long id) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            Todo todo = em.find(Todo.class, id);
+            if(todo != null){
+                em.remove(todo);
+                transaction.commit();
+                return true;
+            } else {
+                return false;
+            }
+        }catch (Exception e){
+            if(transaction.isActive()){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }finally {
+            em.close();
+        }
     }
 
     @Override
-    public List<Todo> getAll() throws SQLException {
-        List<Todo> todos = null;
+    public List<Todo> getAll() {
+        List<Todo> todos = new ArrayList<>();
+        EntityManager em = emf.createEntityManager();
         todos = em.createQuery("select t from Todo t", Todo.class).getResultList();
-
-        //em.close();
-        //emf.close();
-
+        em.close();
         return todos;
+    }
+
+    @Override
+    public Todo get(Long id) {
+        EntityManager em = emf.createEntityManager();
+        Todo todo = em.find(Todo.class, id);
+        em.close();
+        return todo;
     }
 }

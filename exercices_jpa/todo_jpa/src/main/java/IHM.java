@@ -59,7 +59,12 @@ public class IHM {
         System.out.println("########## Création d'une Todo ##########");
         System.out.println("Saisir le titre de votre Todo : ");
         String title = sc.nextLine();
-        _todoService.createTodo(title);
+        System.out.println("Saisir une description pour votre Todo :");
+        String description = sc.nextLine();
+        System.out.println("Priorité de la Todo : ");
+        Integer priority = sc.nextInt();
+        sc.nextLine();
+        _todoService.createTodo(title, description, priority);
     }
 
     private void getTodo(){

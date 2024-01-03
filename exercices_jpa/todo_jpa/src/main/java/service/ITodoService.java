@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ITodoService {
 
-    public Todo createTodo(String title);
+    public Todo createTodo(String title, String description, Integer priority);
     public Todo getTodoById(Long id);
     public boolean updateTodo(Long id);
     public void removeTodo(Long id);

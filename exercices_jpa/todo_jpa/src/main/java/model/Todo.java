@@ -10,6 +10,9 @@ public class Todo {
     @Column(length = 50)
     private String title;
     private Boolean isDone;
+    @OneToOne
+    @JoinColumn(name = "infos_id", referencedColumnName = "id_infos")
+    private InfosTodo infos;
 
     public Todo() {
         this.isDone = false;
@@ -35,6 +38,14 @@ public class Todo {
         this.title = title;
     }
 
+    public InfosTodo getInfos() {
+        return infos;
+    }
+
+    public void setInfos(InfosTodo infos) {
+        this.infos = infos;
+    }
+
     public Boolean getIsDone() {
         return isDone;
     }
@@ -45,9 +56,11 @@ public class Todo {
 
     @Override
     public String toString() {
-        return "Todo : " +
+        return "Todo{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", isDone=" + isDone ;
+                ", isDone=" + isDone +
+                ", infos=" + infos +
+                '}';
     }
 }

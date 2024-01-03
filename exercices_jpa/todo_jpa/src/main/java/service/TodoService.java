@@ -1,9 +1,9 @@
 package service;
 
 import dao.TodoDAO;
+import model.InfosTodo;
 import model.Todo;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,53 +16,34 @@ public class TodoService implements ITodoService{
     }
 
     @Override
-    public Todo createTodo(String title){
+    public Todo createTodo(String title, String description, Integer priority){
         Todo todo = new Todo(title);
-        try {
-            todoDAO.create(todo);
-            return todo;
-        } catch (SQLException e){
-            throw new RuntimeException();
-        }
+        InfosTodo infos = new InfosTodo(description, priority);
+        todoDAO.create(todo, infos);
+        return todo;
     }
 
     @Override
     public Todo getTodoById(Long id) {
-        try {
-            return todoDAO.get(id);
-        } catch (SQLException e){
-            throw new RuntimeException();
-        }
+        return null;
     }
 
     @Override
     public boolean updateTodo(Long id) {
-        try {
-            Todo todo = todoDAO.get(id);
-            return todoDAO.update(todo);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Todo todo = todoDAO.get(id);
+        return todoDAO.update(todo);
     }
 
     @Override
     public void removeTodo(Long id) {
-        try {
-            Todo todo = todoDAO.get(id);
-            todoDAO.delete(todo);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Todo todo = todoDAO.get(id);
+        todoDAO.delete(id);
     }
 
     @Override
     public List<Todo> getAllTodos() {
         List <Todo> todos = new ArrayList<>();
-        try {
-            todos = todoDAO.getAll();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        todos = todoDAO.getAll();
         return todos;
     }
 }
