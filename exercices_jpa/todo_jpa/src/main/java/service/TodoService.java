@@ -4,6 +4,8 @@ import dao.TodoDAO;
 import model.Todo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoService implements ITodoService{
 
@@ -14,27 +16,53 @@ public class TodoService implements ITodoService{
     }
 
     @Override
-    public Todo createTodo(String title) {
-        return null;
+    public Todo createTodo(String title){
+        Todo todo = new Todo(title);
+        try {
+            todoDAO.create(todo);
+            return todo;
+        } catch (SQLException e){
+            throw new RuntimeException();
+        }
     }
 
     @Override
     public Todo getTodoById(Long id) {
-        return null;
+        try {
+            return todoDAO.get(id);
+        } catch (SQLException e){
+            throw new RuntimeException();
+        }
     }
 
     @Override
-    public void updateTodo() {
-
+    public boolean updateTodo(Long id) {
+        try {
+            Todo todo = todoDAO.get(id);
+            return todoDAO.update(todo);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void removeTodo() {
-
+    public void removeTodo(Long id) {
+        try {
+            Todo todo = todoDAO.get(id);
+            todoDAO.delete(todo);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void getAllTodos() {
-
+    public List<Todo> getAllTodos() {
+        List <Todo> todos = new ArrayList<>();
+        try {
+            todos = todoDAO.getAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return todos;
     }
 }

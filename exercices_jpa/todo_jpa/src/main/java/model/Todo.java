@@ -45,10 +45,9 @@ public class Todo {
 
     @Override
     public String toString() {
-        return "Todo{" +
+        return "Todo : " +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", status=" + isDone +
-                '}';
+                ", isDone=" + isDone ;
     }
 }
