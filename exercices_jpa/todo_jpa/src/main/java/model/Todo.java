@@ -10,7 +10,7 @@ public class Todo {
     @Column(length = 50)
     private String title;
     private Boolean isDone;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "infos_id", referencedColumnName = "id_infos")
     private InfosTodo infos;
 
