@@ -1,25 +1,23 @@
 package dao;
 
-import model.InfosTodo;
 import model.Todo;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TodoDAO extends BaseDAO<Todo> {
 
     @Override
-    public boolean create(Todo todo, InfosTodo infos) {
+    public boolean create(Todo todo) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
 
         try {
             transaction.begin();
             em.persist(todo);
-            em.persist(infos);
+            em.persist(todo.getInfos());
             transaction.commit();
             return true;
         } catch (Exception e) {

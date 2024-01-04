@@ -17,10 +17,7 @@ public abstract class BaseDAO<T> {
         emf = Persistence.createEntityManagerFactory("todo");
     }
 
-    //public abstract boolean create(T element) throws SQLException;
-
-    public abstract boolean create(Todo element, InfosTodo infos);
-
+    public abstract boolean create(T element) throws SQLException;
     public abstract boolean update(T element) throws SQLException;
     public abstract boolean delete (Long id) throws SQLException;
     public abstract List<T> getAll() throws SQLException;

@@ -17,9 +17,10 @@ public class Todo {
     public Todo() {
         this.isDone = false;
     }
-    public Todo(String title) {
+    public Todo(String title, InfosTodo infos) {
         this();
         this.title = title;
+        this.infos = infos;
     }
 
     public Long getId() {

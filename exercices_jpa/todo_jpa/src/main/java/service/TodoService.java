@@ -17,9 +17,8 @@ public class TodoService implements ITodoService{
 
     @Override
     public Todo createTodo(String title, String description, Integer priority){
-        Todo todo = new Todo(title);
-        InfosTodo infos = new InfosTodo(description, priority);
-        todoDAO.create(todo, infos);
+        Todo todo = new Todo(title, new InfosTodo(description, priority));
+        todoDAO.create(todo);
         return todo;
     }
 
