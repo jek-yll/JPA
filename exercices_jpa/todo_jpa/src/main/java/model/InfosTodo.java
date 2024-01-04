@@ -35,4 +35,46 @@ public class InfosTodo {
     public Long getId() {
         return id;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public Todo getTodo() {
+        return todo;
+    }
+
+    public void setTodo(Todo todo) {
+        this.todo = todo;
+    }
+
+    @Override
+    public String toString() {
+        return "InfosTodo{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", date=" + date +
+                ", priority=" + priority +
+                '}';
+    }
 }
