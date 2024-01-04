@@ -1,5 +1,6 @@
 import model.Todo;
 import service.ITodoService;
+import service.IUserService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,10 +10,12 @@ public class IHM {
     private Scanner sc;
     private String choix;
     private ITodoService _todoService;
+    private IUserService _userService;
 
-    public IHM(ITodoService todoService){
+    public IHM(ITodoService todoService, IUserService userService){
         sc = new Scanner(System.in);
         _todoService = todoService;
+        _userService = userService;
     }
 
     public void start() throws SQLException {
@@ -21,25 +24,28 @@ public class IHM {
             choix = sc.nextLine();
             switch (choix) {
                 case "1":
-                    // CREATE
                     createTodo();
                     break;
                 case "2":
-                    //READ
                     getTodo();
                     break;
                 case "3":
-                    //UPDATE
                     updateTodo();
                     break;
                 case "4":
-                    //DELETE
                     removeTodo();
                     break;
                 case "5":
-                    //GETALL
                     getAllTodos();
                     break;
+                case "6":
+                    createUser();
+                    break;
+                case "7":
+                    deleteUser();
+                case "8":
+                    getAllTodosByUser();
+
             }
         } while (!choix.equals("0"));
     }
@@ -51,12 +57,18 @@ public class IHM {
         System.out.println("3- Modification d'une Todo");
         System.out.println("4- Suppression d'une Todo");
         System.out.println("5- Affichage des Todos");
+        System.out.println("6- Création d'un utilisateur");
+        System.out.println("7- Suppression d'un utilisateur");
+        System.out.println("8- Afficher les todos d'un utilisateur");
         System.out.println("0- Quitter");
         System.out.println("Votre choix : ");
     }
 
     private void createTodo() {
         System.out.println("########## Création d'une Todo ##########");
+        System.out.println("Saisir votre identifiant utilisateur");
+        Long userId = sc.nextLong();
+        sc.nextLine();
         System.out.println("Saisir le titre de votre Todo : ");
         String title = sc.nextLine();
         System.out.println("Saisir une description pour votre Todo :");
@@ -64,7 +76,7 @@ public class IHM {
         System.out.println("Priorité de la Todo : ");
         Integer priority = sc.nextInt();
         sc.nextLine();
-        _todoService.createTodo(title, description, priority);
+        _todoService.createTodo(title, description, priority, userId);
     }
 
     private void getTodo(){
@@ -104,4 +116,29 @@ public class IHM {
         };
     }
 
+    private void createUser(){
+        System.out.println("########## Création d'un utilisateur ##########");
+        System.out.println("Saisir le nom de l'utilisateur : ");
+        String name = sc.nextLine();
+        _userService.createUser(name);
+    }
+
+    private void deleteUser(){
+        System.out.println("########## Suppression d'un utilisateur ##########");
+        System.out.println("Saisir l'identifiant de l'utilisateur à supprimer");
+        Long userId = sc.nextLong();
+        sc.nextLine();
+        _userService.removeUser(userId);
+    }
+
+    private void getAllTodosByUser(){
+        System.out.println("########## TodoList d'un utilisateur ##########");
+        System.out.println("Saisir l'identifiant utilisateur");
+        Long userId = sc.nextLong();
+        sc.nextLine();
+        List<Todo>todos = _userService.getAllTodoByUser(userId);
+        for (Todo t : todos) {
+            System.out.println(t);
+        }
+    }
 }

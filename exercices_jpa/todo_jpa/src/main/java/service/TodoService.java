@@ -3,6 +3,7 @@ package service;
 import dao.TodoDAO;
 import model.InfosTodo;
 import model.Todo;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,10 @@ public class TodoService implements ITodoService{
     }
 
     @Override
-    public Todo createTodo(String title, String description, Integer priority){
-        Todo todo = new Todo(title, new InfosTodo(description, priority));
+    public Todo createTodo(String title, String description, Integer priority, Long userId){
+        UserService userService = new UserService();
+        User user = userService.getUserById(userId);
+        Todo todo = new Todo(title, new InfosTodo(description, priority), user);
         todoDAO.create(todo);
         return todo;
     }
@@ -35,7 +38,6 @@ public class TodoService implements ITodoService{
 
     @Override
     public void removeTodo(Long id) {
-        Todo todo = todoDAO.get(id);
         todoDAO.delete(id);
     }
 

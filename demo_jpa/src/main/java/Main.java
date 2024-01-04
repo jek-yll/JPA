@@ -1,7 +1,4 @@
-import demo.Demo1;
-import demo.Demo2;
-import demo.Demo3;
-import demo.Demo4;
+import demo.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +11,8 @@ public class Main {
 
         //Demo3.refresh();
 
-        Demo4.main();
+        //Demo4.main();
+        Demo5.main();
+
     }
 }
