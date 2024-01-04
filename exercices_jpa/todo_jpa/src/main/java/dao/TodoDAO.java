@@ -17,7 +17,6 @@ public class TodoDAO extends BaseDAO<Todo> {
         try {
             transaction.begin();
             em.persist(todo);
-            em.persist(todo.getInfos());
             transaction.commit();
             return true;
         } catch (Exception e) {
