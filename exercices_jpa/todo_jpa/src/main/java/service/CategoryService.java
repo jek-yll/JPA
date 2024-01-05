@@ -16,7 +16,7 @@ public class CategoryService implements ICategoryService{
     public Category createCategory(String name) {
         Category category = new Category(name);
         categoryDAO.create(category);
-        return Category;
+        return category;
     }
 
     @Override
