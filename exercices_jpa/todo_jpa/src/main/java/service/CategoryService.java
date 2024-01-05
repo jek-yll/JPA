@@ -1,6 +1,7 @@
 package service;
 
 import dao.CategoryDAO;
+import dao.TodoDAO;
 import model.Category;
 import model.Todo;
 
@@ -35,7 +36,13 @@ public class CategoryService implements ICategoryService{
     }
 
     @Override
-    public boolean acdTodoToCategory(Long idTodo) {
+    public boolean addTodoToCategory(Long idTodo, Long idCategory) {
+        TodoDAO todoDAO = new TodoDAO();
+
+        Category category = categoryDAO.get(idCategory);
+        category.getTodos().add(todoDAO.get(idTodo));
+        categoryDAO.addTodoToCategorie(category);
+
         return false;
     }
 

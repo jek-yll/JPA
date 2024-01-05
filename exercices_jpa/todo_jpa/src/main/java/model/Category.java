@@ -14,7 +14,7 @@ public class Category {
     private Long id;
 
     private String name;
-    @ManyToMany(mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Todo> todos = new ArrayList<>();
 
     public Category() {

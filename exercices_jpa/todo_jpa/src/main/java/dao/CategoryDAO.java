@@ -72,6 +72,16 @@ public class CategoryDAO extends BaseDAO<Category>{
         return category;
     }
 
+    public boolean addTodoToCategorie(Category categoryUpdated){
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.persist(categoryUpdated);
+        transaction.commit();
+        em.close();
+        return true;
+    }
+
     @Override
     public boolean update(Category element) {
         return false;

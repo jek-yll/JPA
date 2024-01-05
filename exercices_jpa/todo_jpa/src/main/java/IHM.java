@@ -192,6 +192,16 @@ public class IHM {
     }
 
     private void addTodoToCategorie(){
+        System.out.println("########## Ajout d'une Todo à une catégorie ##########");
+        if (displayCatTodo()){
+            System.out.println("id de la todo sélectionnée");
+            Long idTodo = sc.nextLong();
+            sc.nextLine();
+            System.out.println("id de la catégorie sélectionnée");
+            Long idCategorie = sc.nextLong();
+            sc.nextLine();
+            _categoryService.addTodoToCategory(idTodo, idCategorie);
+        }
         
     }
     
@@ -213,16 +223,22 @@ public class IHM {
         }
     }
 
-    private void displayTodos(){
+    private boolean displayTodos(){
         List <Todo> todos = _todoService.getAllTodos();
         System.out.println("------------Todos :-------------");
         if (!todos.isEmpty()){
             for (Todo t : todos) {
                 System.out.println( t.getId() + " -> " + t.getTitle());
             }
+            return true;
         } else {
             System.out.printf("Aucune todo à afficher");
+            return false;
         }
+    }
+
+    private boolean displayCatTodo(){
+        return displayTodos() && displayCategories();
     }
 
 }

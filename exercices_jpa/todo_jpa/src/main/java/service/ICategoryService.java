@@ -9,7 +9,7 @@ public interface ICategoryService {
     public Category createCategory(String name);
     public Boolean removeCategory(Long idCategory);
     public List<Todo> todosByCategory(Long idCategory);
-    public boolean acdTodoToCategory(Long idTodo);
+    public boolean addTodoToCategory(Long idTodo, Long idCategorie);
     public boolean removeTodoFromCategory(Long idTodo);
     public List<Category> getAllCategories();
 

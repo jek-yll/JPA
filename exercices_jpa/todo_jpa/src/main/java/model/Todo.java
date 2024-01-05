@@ -19,7 +19,7 @@ public class Todo {
     @JoinColumn(name = "user_id", referencedColumnName = "id_user")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "cat_todo",
             joinColumns = @JoinColumn(name = "cat_id"),
             inverseJoinColumns = @JoinColumn(name = "todo_id"))
