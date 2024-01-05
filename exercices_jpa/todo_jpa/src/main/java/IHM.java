@@ -174,14 +174,7 @@ public class IHM {
     }
     private void removeCategorie(){
         System.out.printf("########## Suppression d'une catégorie ##########");
-        List <Category> categories = _categoryService.getAllCategories();
-        if (!categories.isEmpty()){
-            for (Category c : categories) {
-                System.out.printf(c.getName());
-            }
-        } else {
-            System.out.printf("Aucune catégorie à afficher");
-        }
+        displayCategories();
         System.out.println("id de la catégorie à supprimer");
         Long idCategorie = sc.nextLong();
         sc.nextLine();
@@ -193,7 +186,13 @@ public class IHM {
     }
     
     private void todosByCategorie(){
-        System.out.println("########## Suppression d'une catégorie ##########");
+        System.out.println("########## Afficher les Todos d'une catégorie ##########");
+        displayCategories();
+        System.out.println("id de la catégorie à supprimer");
+        Long idCategorie = sc.nextLong();
+        sc.nextLine();
+        System.out.println();
+
     }
     
     private void addTodoToCategorie(){
@@ -202,6 +201,30 @@ public class IHM {
     
     private void removeTodoFromCategorie(){
         
+    }
+
+    private void displayCategories(){
+        List <Category> categories = _categoryService.getAllCategories();
+        System.out.println("------------Catégories :-------------");
+        if (!categories.isEmpty()){
+            for (Category c : categories) {
+                System.out.printf(c.getId() + " -> " + c.getName());
+            }
+        } else {
+            System.out.printf("Aucune catégorie à afficher");
+        }
+    }
+
+    private void displayTodos(){
+        List <Todo> todos = _todoService.getAllTodos();
+        System.out.println("------------Todos :-------------");
+        if (!todos.isEmpty()){
+            for (Todo t : todos) {
+                System.out.printf( t.getId() + " -> " + t.getTitle());
+            }
+        } else {
+            System.out.printf("Aucune todo à afficher");
+        }
     }
 
 }
