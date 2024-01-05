@@ -1,4 +1,5 @@
 import model.Todo;
+import service.ICategoryService;
 import service.ITodoService;
 import service.IUserService;
 
@@ -11,11 +12,13 @@ public class IHM {
     private String choix;
     private ITodoService _todoService;
     private IUserService _userService;
+    private ICategoryService _categoryService;
 
-    public IHM(ITodoService todoService, IUserService userService){
+    public IHM(ITodoService todoService, IUserService userService, ICategoryService categoryService){
         sc = new Scanner(System.in);
         _todoService = todoService;
         _userService = userService;
+        _categoryService = categoryService;
     }
 
     public void start() throws SQLException {
@@ -45,6 +48,19 @@ public class IHM {
                     deleteUser();
                 case "8":
                     getAllTodosByUser();
+                case "9":
+                    addCategorie();
+                case "10":
+                    removeCategorie();
+                case"11":
+                    todosByCategorie();
+                case"12":
+                    addTodoToCategorie();
+                case "13":
+                    removeTodoFromCategorie();
+
+
+
 
             }
         } while (!choix.equals("0"));
@@ -60,6 +76,11 @@ public class IHM {
         System.out.println("6- Création d'un utilisateur");
         System.out.println("7- Suppression d'un utilisateur");
         System.out.println("8- Afficher les todos d'un utilisateur");
+        System.out.println("9- Ajouter une catéégorie");
+        System.out.println("10- Supprimer une catégorie");
+        System.out.println("11- Afficher les Todos d'une catégorie");
+        System.out.println("12- Ajouter une Todo à une catégorie");
+        System.out.println("13- Supprimer une tache d'une catégorie");
         System.out.println("0- Quitter");
         System.out.println("Votre choix : ");
     }
@@ -141,4 +162,29 @@ public class IHM {
             System.out.println(t);
         }
     }
+    
+    private void addCategorie(){
+        System.out.println("########## Ajout d'une catégorie ##########");
+        System.out.println("Saisir le nom :");
+        String name = sc.nextLine();
+        _categoryService.createCategory(name);
+
+        
+    }
+    private void removeCategorie(){
+        
+    }
+    
+    private void todosByCategorie(){
+        
+    }
+    
+    private void addTodoToCategorie(){
+        
+    }
+    
+    private void removeTodoFromCategorie(){
+        
+    }
+
 }

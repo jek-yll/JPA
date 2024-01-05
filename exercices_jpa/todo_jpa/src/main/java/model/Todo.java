@@ -1,6 +1,8 @@
 package model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Todo {
@@ -17,6 +19,11 @@ public class Todo {
     @JoinColumn(name = "user_id", referencedColumnName = "id_user")
     private User user;
 
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "cat_todo",
+            joinColumns = @JoinColumn(name = "cat_id"),
+            inverseJoinColumns = @JoinColumn(name = "todo_id"))
+    private List<Category> categories = new ArrayList<>();
     public Todo() {
         this.isDone = false;
     }
@@ -65,6 +72,14 @@ public class Todo {
 
     public void setIsDone(Boolean status) {
         this.isDone = status;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

@@ -71,7 +71,7 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
+    public List<User> getAll(){
         return null;
     }
 }
