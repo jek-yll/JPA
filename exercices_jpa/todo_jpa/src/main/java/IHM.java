@@ -47,18 +47,24 @@ public class IHM {
                     break;
                 case "7":
                     deleteUser();
+                    break;
                 case "8":
                     getAllTodosByUser();
+                    break;
                 case "9":
                     addCategorie();
+                    break;
                 case "10":
                     removeCategorie();
-                case"11":
-                    //todosByCategorie();
+                    break;
                 case"12":
                     addTodoToCategorie();
+                    break;
                 case "13":
                     removeTodoFromCategorie();
+                    break;
+                default:
+                    System.out.println("commande non reconnu");
 
 
 
@@ -198,7 +204,7 @@ public class IHM {
         System.out.println("------------Catégories :-------------");
         if (!categories.isEmpty()){
             for (Category c : categories) {
-                System.out.printf( c.getId() + " -> " + c.getName() + "\n");
+                System.out.print( c.getId() + " -> " + c.getName() + "\n");
             }
             return true;
         } else {
@@ -212,7 +218,7 @@ public class IHM {
         System.out.println("------------Todos :-------------");
         if (!todos.isEmpty()){
             for (Todo t : todos) {
-                System.out.printf( t.getId() + " -> " + t.getTitle());
+                System.out.println( t.getId() + " -> " + t.getTitle());
             }
         } else {
             System.out.printf("Aucune todo à afficher");
