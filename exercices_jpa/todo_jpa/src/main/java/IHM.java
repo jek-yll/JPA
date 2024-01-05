@@ -54,7 +54,7 @@ public class IHM {
                 case "10":
                     removeCategorie();
                 case"11":
-                    todosByCategorie();
+                    //todosByCategorie();
                 case"12":
                     addTodoToCategorie();
                 case "13":
@@ -68,7 +68,7 @@ public class IHM {
     }
 
     private void menu(){
-        System.out.println("########## Menu Principal ##########");
+        System.out.println("\n########## Menu Principal ##########");
         System.out.println("1- Création d'une Todo");
         System.out.println("2- Recherche d'une Todo");
         System.out.println("3- Modification d'une Todo");
@@ -77,7 +77,7 @@ public class IHM {
         System.out.println("6- Création d'un utilisateur");
         System.out.println("7- Suppression d'un utilisateur");
         System.out.println("8- Afficher les todos d'un utilisateur");
-        System.out.println("9- Ajouter une catéégorie");
+        System.out.println("9- Ajouter une catégorie");
         System.out.println("10- Supprimer une catégorie");
         System.out.println("11- Afficher les Todos d'une catégorie");
         System.out.println("12- Ajouter une Todo à une catégorie");
@@ -169,32 +169,22 @@ public class IHM {
         System.out.println("Saisir le nom :");
         String name = sc.nextLine();
         _categoryService.createCategory(name);
-
-        
     }
+
     private void removeCategorie(){
         System.out.printf("########## Suppression d'une catégorie ##########");
-        displayCategories();
-        System.out.println("id de la catégorie à supprimer");
-        Long idCategorie = sc.nextLong();
-        sc.nextLine();
-        if (_categoryService.removeCategory(idCategorie)){
-            System.out.println("catégorie " + idCategorie + " supprimé avec succès");
-        } else {
-            System.out.println("echec lors de la suppression de la catégorie");
-        };
+        if (displayCategories()){
+            System.out.println("id de la catégorie à supprimer");
+            Long idCategorie = sc.nextLong();
+            sc.nextLine();
+            if (_categoryService.removeCategory(idCategorie)){
+                System.out.println("catégorie " + idCategorie + " supprimé avec succès");
+            } else {
+                System.out.println("echec lors de la suppression de la catégorie");
+            };
+        }
     }
-    
-    private void todosByCategorie(){
-        System.out.println("########## Afficher les Todos d'une catégorie ##########");
-        displayCategories();
-        System.out.println("id de la catégorie à supprimer");
-        Long idCategorie = sc.nextLong();
-        sc.nextLine();
-        System.out.println();
 
-    }
-    
     private void addTodoToCategorie(){
         
     }
@@ -203,15 +193,17 @@ public class IHM {
         
     }
 
-    private void displayCategories(){
+    private boolean displayCategories(){
         List <Category> categories = _categoryService.getAllCategories();
         System.out.println("------------Catégories :-------------");
         if (!categories.isEmpty()){
             for (Category c : categories) {
-                System.out.printf(c.getId() + " -> " + c.getName());
+                System.out.printf( c.getId() + " -> " + c.getName() + "\n");
             }
+            return true;
         } else {
-            System.out.printf("Aucune catégorie à afficher");
+            System.out.println("Aucune catégorie à afficher");
+            return false;
         }
     }
 
