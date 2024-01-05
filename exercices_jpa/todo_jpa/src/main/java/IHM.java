@@ -1,3 +1,4 @@
+import model.Category;
 import model.Todo;
 import service.ICategoryService;
 import service.ITodoService;
@@ -172,11 +173,27 @@ public class IHM {
         
     }
     private void removeCategorie(){
-        
+        System.out.printf("########## Suppression d'une catégorie ##########");
+        List <Category> categories = _categoryService.getAllCategories();
+        if (!categories.isEmpty()){
+            for (Category c : categories) {
+                System.out.printf(c.getName());
+            }
+        } else {
+            System.out.printf("Aucune catégorie à afficher");
+        }
+        System.out.println("id de la catégorie à supprimer");
+        Long idCategorie = sc.nextLong();
+        sc.nextLine();
+        if (_categoryService.removeCategory(idCategorie)){
+            System.out.println("catégorie " + idCategorie + " supprimé avec succès");
+        } else {
+            System.out.println("echec lors de la suppression de la catégorie");
+        };
     }
     
     private void todosByCategorie(){
-        
+        System.out.println("########## Suppression d'une catégorie ##########");
     }
     
     private void addTodoToCategorie(){

@@ -21,7 +21,12 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public Boolean removeCategory(Long idCategory) {
-        return null;
+        try {
+            return categoryDAO.delete(idCategory);
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -41,7 +46,7 @@ public class CategoryService implements ICategoryService{
 
     @Override
     public List<Category> getAllCategories() {
-        return null;
+        return categoryDAO.getAll();
     }
 
 }
